@@ -1,0 +1,80 @@
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Application,1,13,24]; @symbol_usingAlias = [App,1,28,31]; ]
+using Toybox.Application as :App;
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; @symbol_usingAlias = [Ui,2,24,26]; ]
+using Toybox.WatchUi as :Ui;
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [Lang,3,13,17]; @symbol_usingAlias = [Lang,3,21,25]; ]
+using Toybox.Lang as :Lang;
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 4; @symbol_importdef<0> = [Toybox,4,7,13]; @symbol_importdef<1> = [Application,4,14,25]; ]
+import Toybox.Application;
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 6; @symbol_classdef = [NutritionAiAssistantApp,6,6,29]; @symbol_extends<0> = [App,6,38,41]; @symbol_extends<1> = [AppBase,6,42,49]; ]
+class NutritionAiAssistantApp extends App.AppBase {
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 6; ]
+    <init> {
+    }
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 6; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 8; @symbol_functiondef = [initialize,8,13,23]; ]
+    function initialize() as Void {
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_NutritionAiAssistantApp_mc_8_26_10_4_start:
+[ "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" 9 8 ]
+        symbol [ AppBase %tmp.2 9 8 15 ];
+        %tmp.2 = getv ? :AppBase;
+        symbol [ initialize %tmp.3 9 16 26 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_NutritionAiAssistantApp_mc_8_26_10_4_stop:
+    }
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 13; @symbol_functiondef = [onStart,13,13,20]; @symbol_param<0> = [state,13,21,26]; @symbol_param<0>_type<0> = [Lang,13,30,34]; @symbol_param<0>_type<1> = [Dictionary,13,35,45]; ]
+    function onStart(state as Lang.Dictionary or Null) as Void {
+    }
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 17; @symbol_functiondef = [onStop,17,13,19]; @symbol_param<0> = [state,17,20,25]; @symbol_param<0>_type<0> = [Lang,17,29,33]; @symbol_param<0>_type<1> = [Dictionary,17,34,44]; ]
+    function onStop(state as Lang.Dictionary or Null) as Void {
+    }
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 21; @symbol_functiondef = [getInitialView,21,13,27]; ]
+    function getInitialView() {
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_NutritionAiAssistantApp_mc_21_30_24_4_start:
+[ "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" 22 8 ]
+        [ "_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_NutritionAiAssistantApp_mc_21_30_24_4_start" "_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_NutritionAiAssistantApp_mc_21_30_24_4_stop" ]
+        %view.1 = local;
+        symbol [ view %view.1 22 12 16 ];
+        symbol [ MainView %tmp.4 22 23 31 ];
+        %tmp.4 = getv ? :MainView;
+        %tmp.1 = newc %tmp.4 ();
+        lputv %view.1 %tmp.1;
+        symbol [ view %view.1 22 12 16 ];
+[ "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" 23 8 ]
+        %tmp.5 = newa 2;
+        %tmp.6 = lgetv %view.1;
+        symbol [ view %tmp.6 23 17 21 ];
+        %tmp.7 = dup %tmp.5;
+        %tmp.8 = aputv %tmp.7 0 %tmp.6;
+        symbol [ MainDelegate %tmp.12 23 27 39 ];
+        %tmp.12 = getv ? :MainDelegate;
+        %tmp.13 = lgetv %view.1;
+        symbol [ view %tmp.13 23 40 44 ];
+        %tmp.9 = newc %tmp.12 (%tmp.13);
+        %tmp.14 = dup %tmp.8;
+        %tmp.15 = aputv %tmp.14 1 %tmp.9;
+        ret %tmp.15;
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_NutritionAiAssistantApp_mc_21_30_24_4_stop:
+    }
+}
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 28; @symbol_functiondef = [getApp,28,9,15]; @symbol_return<0> = [NutritionAiAssistantApp,28,21,44]; ]
+function getApp() as NutritionAiAssistantApp {
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_NutritionAiAssistantApp_mc_28_45_30_0_start:
+[ "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" 29 4 ]
+    symbol [ Application %tmp.1 29 11 22 ];
+    %tmp.1 = getm $.Toybox.Application;
+    symbol [ getApp %tmp.2 29 23 29 ];
+    %tmp.2 = getv function %tmp.1 :getApp;
+    %tmp.3 = invoke %tmp.1 %tmp.2();
+    %tmp.4 = as %tmp.3 NutritionAiAssistantApp;
+    symbol [ NutritionAiAssistantApp %tmp.4 29 35 58 ];
+    ret %tmp.4;
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_NutritionAiAssistantApp_mc_28_45_30_0_stop:
+}
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc"; @line = 1; ]
+<init> {
+}

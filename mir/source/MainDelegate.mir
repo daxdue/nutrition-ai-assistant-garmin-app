@@ -1,0 +1,86 @@
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [WatchUi,1,13,20]; @symbol_usingAlias = [Ui,1,24,26]; ]
+using Toybox.WatchUi as :Ui;
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Lang,2,13,17]; @symbol_usingAlias = [Lang,2,21,25]; ]
+using Toybox.Lang as :Lang;
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc"; @line = 4; @symbol_classdef = [MainDelegate,4,6,18]; @symbol_extends<0> = [Ui,4,27,29]; @symbol_extends<1> = [InputDelegate,4,30,43]; ]
+class MainDelegate extends Ui.InputDelegate {
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc"; @line = 4; ]
+    <init> {
+    }
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc"; @line = 4; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc"; @line = 6; @position = 8; @symbol_vardef = [mView,6,8,13]; @symbol_type<0> = [MainView,6,17,25]; ]
+    var mView as MainView;
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc"; @line = 8; @symbol_functiondef = [initialize,8,13,23]; @symbol_param<0> = [view,8,24,28]; @symbol_param<0>_type<0> = [MainView,8,32,40]; ]
+    function initialize(view as MainView) as Void {
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_8_42_11_4_start:
+[ "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" 9 8 ]
+        symbol [ InputDelegate %tmp.2 9 8 21 ];
+        %tmp.2 = getv ? :InputDelegate;
+        symbol [ initialize %tmp.3 9 22 32 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" 10 8 ]
+        %tmp.4 = lgetv %view;
+        symbol [ view %tmp.4 10 16 20 ];
+        symbol [ mView ? 10 8 13 ];
+        putv self :mView %tmp.4;
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_8_42_11_4_stop:
+    }
+    [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc"; @line = 13; @symbol_functiondef = [onKey,13,13,18]; @symbol_param<0> = [evt,13,19,22]; @symbol_param<0>_type<0> = [Ui,13,26,28]; @symbol_param<0>_type<1> = [KeyEvent,13,29,37]; @symbol_return<0> = [Lang,13,42,46]; @symbol_return<1> = [Boolean,13,47,54]; ]
+    function onKey(evt as Ui.KeyEvent) as Lang.Boolean {
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_13_55_21_4_start:
+[ "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" 15 8 ]
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_8_18_8_if_stmt:
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_12_15_63_begin:
+        %tmp.1 = lgetv %evt;
+        symbol [ evt %tmp.1 15 12 15 ];
+        symbol [ getKey %tmp.2 15 16 22 ];
+        %tmp.2 = getv function %tmp.1 :getKey;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        symbol [ Ui %tmp.4 15 28 30 ];
+        %tmp.4 = getm $.Toybox.WatchUi;
+        symbol [ KEY_START %tmp.5 15 31 40 ];
+        %tmp.5 = getv %tmp.4 :KEY_START;
+        %tmp.6 = eq %tmp.3 %tmp.5;
+        bt %tmp.6 @_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_8_18_8_if_true;
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_44_15_63_false:
+        %tmp.7 = lgetv %evt;
+        symbol [ evt %tmp.7 15 44 47 ];
+        symbol [ getKey %tmp.8 15 48 54 ];
+        %tmp.8 = getv function %tmp.7 :getKey;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        symbol [ Ui %tmp.10 15 60 62 ];
+        %tmp.10 = getm $.Toybox.WatchUi;
+        symbol [ KEY_ENTER %tmp.11 15 63 72 ];
+        %tmp.11 = getv %tmp.10 :KEY_ENTER;
+        %tmp.12 = eq %tmp.9 %tmp.11;
+        push %tmp.12;
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_44_15_63_end:
+        %tmp.13 = phi [%tmp.6 @_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_12_15_63_begin] [%tmp.12 @_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_44_15_63_false] [%tmp.13 @_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_44_15_63_end];
+        bf %tmp.13 @_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_8_18_8_if_end;
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_8_18_8_if_true:
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_74_18_8_start:
+[ "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" 16 12 ]
+        symbol [ mView %tmp.15 16 12 17 ];
+        %tmp.15 = getv ? :mView;
+        symbol [ sendNow %tmp.16 16 18 25 ];
+        %tmp.16 = getv function %tmp.15 :sendNow;
+        invoke %tmp.15 %tmp.16();
+[ "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" 17 12 ]
+        %tmp.17 = true;
+        ret %tmp.17;
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_74_18_8_stop:
+        goto @_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_8_18_8_if_end;
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_15_8_18_8_if_end:
+[ "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" 20 8 ]
+        %tmp.18 = false;
+        ret %tmp.18;
+_Users_sergeikochetkov_devel_nutrition_assistant_NutritionAiAssistantApp_source_MainDelegate_mc_13_55_21_4_stop:
+    }
+}
+[ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc"; @line = 1; ]
+<init> {
+}

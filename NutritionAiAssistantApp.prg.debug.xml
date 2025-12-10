@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<debugInfo>
+    <manifest filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/manifest.xml"/>
+    <pcToLineNum>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" id="1" lineNum="6" parent="globals/NutritionAiAssistantApp" pc="268435457" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" id="2" lineNum="4" parent="globals/MainDelegate" pc="268435469" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" id="3" lineNum="28" parent="globals" pc="268435481" symbol="getApp"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" id="3" lineNum="29" parent="globals" pc="268435491" symbol="getApp"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="4" lineNum="12" parent="globals/MainView" pc="268435502" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="5" lineNum="7" parent="globals/Rez" pc="268435514" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainMenuDelegate.mc" id="6" lineNum="4" parent="globals/MainMenuDelegate" pc="268435534" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" id="8" lineNum="21" parent="globals/NutritionAiAssistantApp" pc="268435546" symbol="getInitialView"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" id="8" lineNum="22" parent="globals/NutritionAiAssistantApp" pc="268435549" symbol="getInitialView"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" id="8" lineNum="23" parent="globals/NutritionAiAssistantApp" pc="268435569" symbol="getInitialView"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" id="9" lineNum="8" parent="globals/NutritionAiAssistantApp" pc="268435602" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/NutritionAiAssistantApp.mc" id="9" lineNum="9" parent="globals/NutritionAiAssistantApp" pc="268435604" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" id="11" lineNum="8" parent="globals/MainDelegate" pc="268435617" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" id="11" lineNum="9" parent="globals/MainDelegate" pc="268435619" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" id="11" lineNum="10" parent="globals/MainDelegate" pc="268435631" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" id="12" lineNum="13" parent="globals/MainDelegate" pc="268435641" symbol="onKey"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" id="12" lineNum="15" parent="globals/MainDelegate" pc="268435643" symbol="onKey"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" id="12" lineNum="16" parent="globals/MainDelegate" pc="268435669" symbol="onKey"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" id="12" lineNum="17" parent="globals/MainDelegate" pc="268435681" symbol="onKey"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainDelegate.mc" id="12" lineNum="20" parent="globals/MainDelegate" pc="268435683" symbol="onKey"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="13" lineNum="26" parent="globals/MainView" pc="268435685" symbol="onShow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="13" lineNum="28" parent="globals/MainView" pc="268435687" symbol="onShow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="13" lineNum="29" parent="globals/MainView" pc="268435699" symbol="onShow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="13" lineNum="30" parent="globals/MainView" pc="268435710" symbol="onShow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="14" lineNum="58" parent="globals/MainView" pc="268435718" symbol="sendNow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="14" lineNum="59" parent="globals/MainView" pc="268435721" symbol="sendNow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="14" lineNum="61" parent="globals/MainView" pc="268435729" symbol="sendNow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="14" lineNum="62" parent="globals/MainView" pc="268435735" symbol="sendNow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="14" lineNum="63" parent="globals/MainView" pc="268435747" symbol="sendNow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="14" lineNum="64" parent="globals/MainView" pc="268435758" symbol="sendNow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="14" lineNum="67" parent="globals/MainView" pc="268435759" symbol="sendNow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="14" lineNum="75" parent="globals/MainView" pc="268435792" symbol="sendNow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="14" lineNum="76" parent="globals/MainView" pc="268435804" symbol="sendNow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="14" lineNum="78" parent="globals/MainView" pc="268435815" symbol="sendNow"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="86" parent="globals/MainView" pc="268435851" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="88" parent="globals/MainView" pc="268435854" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="89" parent="globals/MainView" pc="268435886" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="92" parent="globals/MainView" pc="268435888" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="93" parent="globals/MainView" pc="268435900" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="94" parent="globals/MainView" pc="268435906" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="98" parent="globals/MainView" pc="268435908" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="99" parent="globals/MainView" pc="268435920" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="102" parent="globals/MainView" pc="268435965" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="107" parent="globals/MainView" pc="268435995" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="108" parent="globals/MainView" pc="268436007" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="109" parent="globals/MainView" pc="268436015" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="110" parent="globals/MainView" pc="268436023" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="15" lineNum="113" parent="globals/MainView" pc="268436031" symbol="buildPayload"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="136" parent="globals/MainView" pc="268436118" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="138" parent="globals/MainView" pc="268436121" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="139" parent="globals/MainView" pc="268436151" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="144" parent="globals/MainView" pc="268436185" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="145" parent="globals/MainView" pc="268436202" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="146" parent="globals/MainView" pc="268436212" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="147" parent="globals/MainView" pc="268436240" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="153" parent="globals/MainView" pc="268436248" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="154" parent="globals/MainView" pc="268436278" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="155" parent="globals/MainView" pc="268436290" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="156" parent="globals/MainView" pc="268436318" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="16" lineNum="160" parent="globals/MainView" pc="268436326" symbol="getLatestHeartRate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="17" lineNum="203" parent="globals/MainView" pc="268436328" symbol="onHttpResponse"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="17" lineNum="204" parent="globals/MainView" pc="268436330" symbol="onHttpResponse"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="17" lineNum="205" parent="globals/MainView" pc="268436348" symbol="onHttpResponse"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="17" lineNum="207" parent="globals/MainView" pc="268436363" symbol="onHttpResponse"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="17" lineNum="210" parent="globals/MainView" pc="268436383" symbol="onHttpResponse"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="18" lineNum="126" parent="globals/MainView" pc="268436395" symbol="getStepsToday"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="18" lineNum="127" parent="globals/MainView" pc="268436397" symbol="getStepsToday"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="18" lineNum="128" parent="globals/MainView" pc="268436419" symbol="getStepsToday"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="18" lineNum="130" parent="globals/MainView" pc="268436427" symbol="getStepsToday"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="18" lineNum="131" parent="globals/MainView" pc="268436449" symbol="getStepsToday"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="18" lineNum="133" parent="globals/MainView" pc="268436457" symbol="getStepsToday"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="19" lineNum="163" parent="globals/MainView" pc="268436459" symbol="getLatestBodyBattery"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="19" lineNum="164" parent="globals/MainView" pc="268436462" symbol="getLatestBodyBattery"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="19" lineNum="165" parent="globals/MainView" pc="268436494" symbol="getLatestBodyBattery"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="19" lineNum="168" parent="globals/MainView" pc="268436496" symbol="getLatestBodyBattery"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="19" lineNum="173" parent="globals/MainView" pc="268436530" symbol="getLatestBodyBattery"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="19" lineNum="174" parent="globals/MainView" pc="268436547" symbol="getLatestBodyBattery"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="19" lineNum="175" parent="globals/MainView" pc="268436557" symbol="getLatestBodyBattery"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="19" lineNum="176" parent="globals/MainView" pc="268436585" symbol="getLatestBodyBattery"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="19" lineNum="180" parent="globals/MainView" pc="268436593" symbol="getLatestBodyBattery"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="20" lineNum="183" parent="globals/MainView" pc="268436595" symbol="getLatestStress"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="20" lineNum="184" parent="globals/MainView" pc="268436598" symbol="getLatestStress"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="20" lineNum="185" parent="globals/MainView" pc="268436630" symbol="getLatestStress"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="20" lineNum="188" parent="globals/MainView" pc="268436632" symbol="getLatestStress"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="20" lineNum="193" parent="globals/MainView" pc="268436666" symbol="getLatestStress"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="20" lineNum="194" parent="globals/MainView" pc="268436683" symbol="getLatestStress"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="20" lineNum="195" parent="globals/MainView" pc="268436693" symbol="getLatestStress"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="20" lineNum="196" parent="globals/MainView" pc="268436721" symbol="getLatestStress"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="20" lineNum="200" parent="globals/MainView" pc="268436729" symbol="getLatestStress"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="21" lineNum="18" parent="globals/MainView" pc="268436731" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="21" lineNum="19" parent="globals/MainView" pc="268436733" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="21" lineNum="20" parent="globals/MainView" pc="268436745" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="23" lineNum="34" parent="globals/MainView" pc="268436758" symbol="onUpdate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="23" lineNum="36" parent="globals/MainView" pc="268436761" symbol="onUpdate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="23" lineNum="37" parent="globals/MainView" pc="268436769" symbol="onUpdate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="23" lineNum="39" parent="globals/MainView" pc="268436785" symbol="onUpdate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="23" lineNum="40" parent="globals/MainView" pc="268436794" symbol="onUpdate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc" id="23" lineNum="42" parent="globals/MainView" pc="268436803" symbol="onUpdate"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainMenuDelegate.mc" id="25" lineNum="6" parent="globals/MainMenuDelegate" pc="268436833" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainMenuDelegate.mc" id="25" lineNum="7" parent="globals/MainMenuDelegate" pc="268436835" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="26" lineNum="14" parent="globals/Rez/Layouts" pc="268436848" symbol="MainLayout"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="26" lineNum="15" parent="globals/Rez/Layouts" pc="268436859" symbol="MainLayout"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="26" lineNum="17" parent="globals/Rez/Layouts" pc="268436868" symbol="MainLayout"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="26" lineNum="19" parent="globals/Rez/Layouts" pc="268436971" symbol="MainLayout"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="26" lineNum="20" parent="globals/Rez/Layouts" pc="268437055" symbol="MainLayout"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="26" lineNum="22" parent="globals/Rez/Layouts" pc="268437086" symbol="MainLayout"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="27" lineNum="27" parent="globals/Rez/Menus/MainMenu" pc="268437101" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="28" lineNum="28" parent="globals/Rez/Menus/MainMenu" pc="268437113" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="28" lineNum="29" parent="globals/Rez/Menus/MainMenu" pc="268437115" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="28" lineNum="30" parent="globals/Rez/Menus/MainMenu" pc="268437127" symbol="initialize"/>
+        <entry filename="/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/gen/006-B4315-00/source/Rez.mcgen" id="28" lineNum="31" parent="globals/Rez/Menus/MainMenu" pc="268437172" symbol="initialize"/>
+    </pcToLineNum>
+    <symbolTable>
+        <entry id="8388639" module="true" symbol="Graphics"/>
+        <entry id="8389346" symbol="text"/>
+        <entry id="8388632" method="true" symbol="&lt;init&gt;"/>
+        <entry id="5" module="true" symbol="globals/Rez/Menus"/>
+        <entry id="31" symbol="stepsToday"/>
+        <entry id="7" object="true" symbol="MainDelegate"/>
+        <entry id="24" method="true" symbol="MainLayout"/>
+        <entry id="8" object="true" symbol="MainMenuDelegate"/>
+        <entry id="8388826" method="true" symbol="next"/>
+        <entry id="8389702" method="true" symbol="getHeartRateHistory"/>
+        <entry id="8391839" method="true" symbol="getBodyBatteryHistory"/>
+        <entry field="true" id="8388611" module="true" symbol="Toybox"/>
+        <entry id="18" method="true" symbol="onHttpResponse"/>
+        <entry id="8388909" method="true" symbol="getInfo"/>
+        <entry id="30" symbol="deviceName"/>
+        <entry field="true" id="11" symbol="mView"/>
+        <entry id="15" method="true" symbol="getLatestStress"/>
+        <entry field="true" id="26" symbol="AppName"/>
+        <entry id="8388633" module="true" symbol="ActivityMonitor"/>
+        <entry field="true" id="8389807" symbol="data"/>
+        <entry id="14" method="true" symbol="getLatestHeartRate"/>
+        <entry id="6" module="true" symbol="globals/Rez/Strings"/>
+        <entry id="8389594" symbol="headers"/>
+        <entry id="8389345" symbol="rezId"/>
+        <entry field="true" id="8388912" symbol="steps"/>
+        <entry id="8388648" module="true" symbol="WatchUi"/>
+        <entry id="2" module="true" symbol="globals/Rez"/>
+        <entry field="true" id="29" symbol="prompt"/>
+        <entry id="9" object="true" symbol="MainView"/>
+        <entry field="true" id="23" symbol="id_monkey"/>
+        <entry id="8389124" method="true" symbol="onUpdate"/>
+        <entry field="true" id="8389065" symbol="locY"/>
+        <entry field="true" id="8389064" symbol="locX"/>
+        <entry id="8388771" module="true" object="true" symbol="Drawables"/>
+        <entry id="8389348" symbol="font"/>
+        <entry id="33" symbol="item_2"/>
+        <entry id="32" symbol="item_1"/>
+        <entry id="21" module="true" symbol="Menus"/>
+        <entry id="8389275" method="true" symbol="getApp"/>
+        <entry id="4" module="true" symbol="globals/Rez/Layouts"/>
+        <entry field="true" id="8389063" symbol="identifier"/>
+        <entry id="8389349" symbol="justification"/>
+        <entry id="3" module="true" symbol="globals/Rez/Drawables"/>
+        <entry id="8389809" symbol="order"/>
+        <entry id="25" object="true" symbol="MainMenu"/>
+        <entry id="8389844" symbol="responseType"/>
+        <entry id="8388786" method="true" symbol="method"/>
+        <entry id="12" method="true" symbol="buildPayload"/>
+        <entry id="19" method="true" symbol="sendNow"/>
+        <entry id="8388645" module="true" symbol="Time"/>
+        <entry id="8388769" module="true" object="true" symbol="Rez"/>
+        <entry id="16" method="true" symbol="getStepsToday"/>
+        <entry id="8388640" module="true" symbol="Lang"/>
+        <entry field="true" id="22" symbol="LauncherIcon"/>
+        <entry id="8388610" symbol="statics"/>
+        <entry id="8389123" method="true" symbol="onShow"/>
+        <entry field="true" id="17" symbol="mStatus"/>
+        <entry id="8391847" method="true" symbol="getStressHistory"/>
+        <entry id="8389350" module="true" symbol="globals"/>
+        <entry id="8388770" module="true" object="true" symbol="Strings"/>
+        <entry id="8388702" method="true" symbol="initialize"/>
+        <entry id="8389279" method="true" symbol="onStart"/>
+        <entry id="8389808" symbol="period"/>
+        <entry field="true" id="8388747" symbol="currentHeartRate"/>
+        <entry id="8389280" method="true" symbol="getInitialView"/>
+        <entry id="8389281" method="true" symbol="onStop"/>
+        <entry id="8389109" method="true" symbol="onMenuItem"/>
+        <entry field="true" id="8389347" symbol="color"/>
+        <entry id="8389781" module="true" symbol="SensorHistory"/>
+        <entry id="13" method="true" symbol="getLatestBodyBattery"/>
+        <entry id="8389097" method="true" symbol="onKey"/>
+        <entry id="20" module="true" symbol="Layouts"/>
+        <entry id="10" object="true" symbol="NutritionAiAssistantApp"/>
+        <entry field="true" id="8390457" symbol="uniqueIdentifier"/>
+        <entry id="8389125" method="true" symbol="onHide"/>
+        <entry id="8388635" module="true" symbol="Application"/>
+        <entry field="true" id="28" symbol="menu_label_2"/>
+        <entry field="true" id="27" symbol="menu_label_1"/>
+    </symbolTable>
+    <localVars>
+        <entry arg="true" endPc="268435640" name="view" stackId="1" startPc="268435617"/>
+        <entry arg="true" endPc="268435684" name="evt" stackId="1" startPc="268435641"/>
+        <entry endPc="268435849" name="payload" stackId="1" startPc="268435721"/>
+        <entry endPc="268435849" name="options" stackId="2" startPc="268435721"/>
+        <entry arg="true" endPc="268436394" name="responseCode" stackId="1" startPc="268436328"/>
+        <entry arg="true" endPc="268436394" name="data" stackId="2" startPc="268436328"/>
+        <entry arg="true" endPc="268436458" name="info" stackId="1" startPc="268436395"/>
+        <entry arg="true" endPc="268436832" name="dc" stackId="1" startPc="268436758"/>
+        <entry endPc="268436831" name="w" stackId="2" startPc="268436761"/>
+        <entry endPc="268436831" name="h" stackId="3" startPc="268436761"/>
+        <entry arg="true" endPc="268437100" name="dc" stackId="1" startPc="268436848"/>
+    </localVars>
+    <deviceInfo deviceVersion="5c7ae9cf907f88c116a91dc4ffd75be9b5b7d2e9" partNumber="006-B4315-00"/>
+    <annotations>
+        <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="menu_label_2"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="menu_label_1"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="prompt"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="AppName"/>
+        <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="id_monkey"/>
+    </annotations>
+    <dataEntryOffsetMappings>
+        <dataEntry label="globals" offset="67" parentId="" symbolId="globals" type="module"/>
+        <dataEntry label="globals/NutritionAiAssistantApp" offset="152" parentId="globals" symbolId="NutritionAiAssistantApp" type="class"/>
+        <dataEntry label="globals/MainDelegate" offset="223" parentId="globals" symbolId="MainDelegate" type="class"/>
+        <dataEntry label="globals/MainView" offset="285" parentId="globals" symbolId="MainView" type="class"/>
+        <dataEntry label="globals/Rez" offset="428" parentId="globals" symbolId="Rez" type="module"/>
+        <dataEntry label="globals/MainMenuDelegate" offset="490" parentId="globals" symbolId="MainMenuDelegate" type="class"/>
+        <dataEntry label="globals/Rez/Drawables" offset="543" parentId="Rez" symbolId="Drawables" type="module"/>
+        <dataEntry label="globals/Rez/Layouts" offset="587" parentId="Rez" symbolId="Layouts" type="module"/>
+        <dataEntry label="globals/Rez/Menus" offset="622" parentId="Rez" symbolId="Menus" type="module"/>
+        <dataEntry label="globals/Rez/Strings" offset="657" parentId="Rez" symbolId="Strings" type="module"/>
+        <dataEntry label="globals/Rez/Menus/MainMenu" offset="719" parentId="Menus" symbolId="MainMenu" type="class"/>
+    </dataEntryOffsetMappings>
+    <functions>
+        <functionEntry accessMode="public" endPc="268435468" name="&lt;init&gt;" parent="NutritionAiAssistantApp" startPc="268435457">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435480" name="&lt;init&gt;" parent="MainDelegate" startPc="268435469">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435501" name="getApp" startPc="268435481">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435513" name="&lt;init&gt;" parent="MainView" startPc="268435502">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435533" name="&lt;init&gt;" parent="Rez" startPc="268435514">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435545" name="&lt;init&gt;" parent="MainMenuDelegate" startPc="268435534">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="onStart" parent="NutritionAiAssistantApp">
+            <param id="state"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435601" name="getInitialView" parent="NutritionAiAssistantApp" startPc="268435546">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435616" name="initialize" parent="NutritionAiAssistantApp" startPc="268435602">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="onStop" parent="NutritionAiAssistantApp">
+            <param id="state"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435640" name="initialize" parent="MainDelegate" startPc="268435617">
+            <param id="view"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435684" name="onKey" parent="MainDelegate" startPc="268435641">
+            <param id="evt"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435717" name="onShow" parent="MainView" startPc="268435685">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435850" name="sendNow" parent="MainView" startPc="268435718">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436117" name="buildPayload" parent="MainView" startPc="268435851">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436327" name="getLatestHeartRate" parent="MainView" startPc="268436118">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436394" name="onHttpResponse" parent="MainView" startPc="268436328">
+            <param id="responseCode"/>
+            <param id="data"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436458" name="getStepsToday" parent="MainView" startPc="268436395">
+            <param id="info"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436594" name="getLatestBodyBattery" parent="MainView" startPc="268436459">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436730" name="getLatestStress" parent="MainView" startPc="268436595">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436757" name="initialize" parent="MainView" startPc="268436731">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="onHide" parent="MainView">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436832" name="onUpdate" parent="MainView" startPc="268436758">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Drawables">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Layouts">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Menus">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Strings">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="onMenuItem" parent="MainMenuDelegate">
+            <param id="item"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436847" name="initialize" parent="MainMenuDelegate" startPc="268436833">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437100" name="MainLayout" parent="Layouts" startPc="268436848">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437112" name="&lt;init&gt;" parent="MainMenu" startPc="268437101">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437217" name="initialize" parent="MainMenu" startPc="268437113">
+            <documentation/>
+        </functionEntry>
+    </functions>
+</debugInfo>
