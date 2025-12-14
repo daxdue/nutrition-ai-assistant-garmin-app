@@ -1,0 +1,58 @@
+# Garmin Connect IQ Build Outputs
+*.prg
+*.prg.debug.xml
+*.bar
+*.iq
+
+# Build directories
+bin/
+gen/
+mir/
+internal-mir/
+
+# Garmin Connect IQ SDK
+.sdk/
+
+# Developer Keys (NEVER commit these!)
+*.key
+developer_key
+*.pem
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Monkey C compiled files
+*.mbc
+*.mir
+
+# Resource cache
+resources/cache/
+
+# Build artifacts
+build/
+dist/
+

@@ -11,8 +11,7 @@ import Toybox.Graphics;
 
 class MainView extends Ui.View {
 
-    // TODO: Replace with your real backend URL
-    const BACKEND_URL = "https://<backend>/api/garmin/daily";
+    const BACKEND_URL = "https://e42696fe8378.ngrok-free.app/api/garmin/daily";
     var mStatus as Lang.String;
 
     function initialize() {
@@ -99,27 +98,31 @@ class MainView extends Ui.View {
         var deviceId = (settings != null && (settings has :uniqueIdentifier) && settings.uniqueIdentifier != null)
             ? settings.uniqueIdentifier
             : "unknown";
-        var deviceName = (settings != null && (settings has :deviceName)) 
-            ? settings.deviceName 
-            : null;
 
-        // Collect metrics
+        // Collect activity metrics
         var steps = getStepsToday(info);
-        var heartRate = getLatestHeartRate();
+        var activeCalories = getActiveCalories(info);
         var bodyBattery = getLatestBodyBattery();
-        var stress = getLatestStress();
+        var stressAvg = getLatestStress();
 
-        // Build payload dictionary
+        // Backend requires steps and activeCalories to be numbers (not null)
+        // Default to 0 if null
+        if (steps == null) {
+            steps = 0;
+        }
+        if (activeCalories == null) {
+            activeCalories = 0;
+        }
+
+        // Build payload dictionary matching backend format
+        // Include all fields - backend will handle null optional values
         return {
-            "deviceId"   => deviceId,
-            "deviceName" => deviceName,
-            "timestamp"  => Time.now().value(),
-            "metrics"    => {
-                "steps"       => steps,
-                "heartRate"   => heartRate,
-                "bodyBattery" => bodyBattery,
-                "stress"      => stress
-            }
+            "deviceId" => deviceId,
+            "timestamp" => Time.now().value(),
+            "steps" => steps,
+            "activeCalories" => activeCalories,
+            "bodyBattery" => bodyBattery,
+            "stressAvg" => stressAvg
         };
     }
 
@@ -129,6 +132,18 @@ class MainView extends Ui.View {
         }
         if ((info has :steps) && info.steps != null) {
             return info.steps;
+        }
+        return null;
+    }
+
+    function getActiveCalories(info as AM.Info) as Lang.Number or Null {
+        // Try activeCalories first (calories burned during activities)
+        if ((info has :activeCalories) && info.activeCalories != null) {
+            return info.activeCalories;
+        }
+        // Fallback to calories (total active calories for the day)
+        if ((info has :calories) && info.calories != null) {
+            return info.calories;
         }
         return null;
     }
