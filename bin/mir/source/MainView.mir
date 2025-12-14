@@ -28,7 +28,7 @@ class MainView extends Ui.View {
     <init> {
     }
     [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc"; @line = 14; @position = 10; @symbol_constdef = [BACKEND_URL,14,10,21]; ]
-    const BACKEND_URL = "https://e42696fe8378.ngrok-free.app";
+    const BACKEND_URL = "https://nutrition-assistant-backend-production-cd64.up.railway.app";
     [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc"; @line = 15; @position = 10; @symbol_constdef = [API_KEY_STORAGE_KEY,15,10,29]; ]
     const API_KEY_STORAGE_KEY = "apiKey";
     [ @file = "/Users/sergeikochetkov/devel/nutrition-assistant/NutritionAiAssistantApp/source/MainView.mc"; @line = 16; @position = 8; @symbol_vardef = [mStatus,16,8,15]; @symbol_type<0> = [Lang,16,19,23]; @symbol_type<1> = [String,16,24,30]; ]

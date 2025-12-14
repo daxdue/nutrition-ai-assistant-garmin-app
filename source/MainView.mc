@@ -11,7 +11,7 @@ import Toybox.Graphics;
 
 class MainView extends Ui.View {
 
-    const BACKEND_URL = "https://e42696fe8378.ngrok-free.app";
+    const BACKEND_URL = "https://nutrition-assistant-backend-production-cd64.up.railway.app";
     const API_KEY_STORAGE_KEY = "apiKey";
     var mStatus as Lang.String;
     var mIsPaired as Lang.Boolean;
