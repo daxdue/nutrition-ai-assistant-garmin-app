@@ -3,9 +3,6 @@ using Toybox.WatchUi as Ui;
 using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
 using Toybox.Communications as Comm;
-using Toybox.SensorHistory as SH;
-using Toybox.ActivityMonitor as AM;
-using Toybox.Time as Time;
 using Toybox.Lang as Lang;
 import Toybox.Graphics;
 
@@ -17,6 +14,10 @@ class MainView extends Ui.View {
     var mIsPaired as Lang.Boolean;
     var mDeviceId as Lang.String;
     var mApiKey as Lang.String?;
+    var mQrBitmap as Gfx.BitmapReference?;
+    var mQrStatus as Lang.String;
+    var mQrRequestInFlight as Lang.Boolean;
+    var mDelegate as MainDelegate?;
 
     function initialize() {
         View.initialize();
@@ -24,6 +25,9 @@ class MainView extends Ui.View {
         mIsPaired = false;
         mDeviceId = "";
         mApiKey = null;
+        mQrBitmap = null;
+        mQrStatus = "Loading QR…";
+        mQrRequestInFlight = false;
         
         // Load stored API key
         var app = App.getApp();
@@ -42,11 +46,18 @@ class MainView extends Ui.View {
         mDeviceId = (settings != null && (settings has :uniqueIdentifier) && settings.uniqueIdentifier != null)
             ? settings.uniqueIdentifier
             : "unknown";
+        mQrBitmap = null;
+        mQrStatus = "Loading QR…";
+        mQrRequestInFlight = false;
+        Ui.requestUpdate();
 
         // Check pairing status
         mStatus = "Checking…";
         Ui.requestUpdate();
         checkPairingStatus();
+
+        // Kick off QR download so it is ready if not paired
+        requestQrCode();
     }
 
     // Update the view
@@ -59,64 +70,61 @@ class MainView extends Ui.View {
         var h = dc.getHeight();
 
         if (!mIsPaired) {
-            // Show pairing instructions with device ID
-            // Note: QR code can be accessed at BACKEND_URL + "/api/pairing/qrcode/" + mDeviceId
-            // but Connect IQ has limitations displaying arbitrary images, so we show the device ID text
+            // Pairing UI with downloadable QR code
             dc.drawText(
                 w / 2,
                 20,
                 Gfx.FONT_SMALL,
-                "Not Paired",
+                "Pair Device",
                 Gfx.TEXT_JUSTIFY_CENTER
             );
             dc.drawText(
                 w / 2,
-                45,
+                42,
                 Gfx.FONT_XTINY,
-                "Device ID:",
+                mStatus,
                 Gfx.TEXT_JUSTIFY_CENTER
             );
-            
-            // Display device ID (split into multiple lines if needed)
-            var deviceIdDisplay = mDeviceId;
-            var maxLineLength = 18;
-            if (deviceIdDisplay.length() > maxLineLength) {
-                // Split into multiple lines
-                var lines = splitDeviceId(deviceIdDisplay, maxLineLength);
-                var startY = h / 2 - (lines.size() * 12) / 2;
-                for (var i = 0; i < lines.size(); i++) {
-                    dc.drawText(
-                        w / 2,
-                        startY + (i * 12),
-                        Gfx.FONT_XTINY,
-                        lines[i],
-                        Gfx.TEXT_JUSTIFY_CENTER
-                    );
-                }
+
+            if (mQrBitmap != null) {
+                var qr = mQrBitmap;
+                var qrW = ((qr has :getWidth) && qr.getWidth() != null) ? qr.getWidth() : 0;
+                var qrH = ((qr has :getHeight) && qr.getHeight() != null) ? qr.getHeight() : 0;
+                var qrX = (w - qrW) / 2;
+                var qrY = (h - qrH) / 2 - 8;
+                dc.drawBitmap(qrX, qrY, qr);
             } else {
                 dc.drawText(
                     w / 2,
-                    h / 2,
+                    h / 2 - 10,
                     Gfx.FONT_XTINY,
-                    deviceIdDisplay,
+                    mQrStatus,
                     Gfx.TEXT_JUSTIFY_CENTER
                 );
             }
-            
+
+            // Device ID for manual entry fallback
             dc.drawText(
                 w / 2,
-                h - 35,
+                h - 48,
                 Gfx.FONT_XTINY,
-                "Use /pair in bot",
+                "Device ID",
                 Gfx.TEXT_JUSTIFY_CENTER
             );
-            dc.drawText(
-                w / 2,
-                h - 20,
-                Gfx.FONT_XTINY,
-                "to pair device",
-                Gfx.TEXT_JUSTIFY_CENTER
-            );
+
+            var deviceIdDisplay = mDeviceId;
+            var maxLineLength = 18;
+            var lines = splitDeviceId(deviceIdDisplay, maxLineLength);
+            var startY = h - 36;
+            for (var i = 0; i < lines.size(); i++) {
+                dc.drawText(
+                    w / 2,
+                    startY + (i * 11),
+                    Gfx.FONT_XTINY,
+                    lines[i],
+                    Gfx.TEXT_JUSTIFY_CENTER
+                );
+            }
         } else {
             // Show status
             dc.drawText(
@@ -135,12 +143,17 @@ class MainView extends Ui.View {
     function onHide() as Void {
     }
 
+    function setDelegate(delegate as MainDelegate) as Void {
+        mDelegate = delegate;
+    }
+
     // Check if device is paired
     function checkPairingStatus() as Void {
         if (mDeviceId.equals("unknown")) {
             mStatus = "Error: No Device ID";
             mIsPaired = false;
             Ui.requestUpdate();
+            mQrStatus = "No Device ID";
             return;
         }
 
@@ -160,16 +173,73 @@ class MainView extends Ui.View {
 
     function onPairingStatusResponse(responseCode as Lang.Number, data as Lang.Dictionary or Lang.String or Null) as Void {
         if (responseCode >= 200 && responseCode < 300) {
-            if (data != null && (data has :paired) && data.get(:paired) == true) {
+            var payload = data;
+
+            var pairedValue = null;
+            if (payload != null && payload instanceof Lang.Dictionary) {
+                if (payload has :paired) {
+                    pairedValue = payload.get(:paired);
+                } else {
+                    pairedValue = payload.get("paired");
+                }
+            } else if (payload != null && payload instanceof Lang.String) {
+                var payloadStr = payload as Lang.String;
+                if (payloadStr.find("\"paired\":true") != null || payloadStr.find("\"paired\": true") != null) {
+                    pairedValue = true;
+                } else if (payloadStr.find("\"paired\":false") != null || payloadStr.find("\"paired\": false") != null) {
+                    pairedValue = false;
+                } else if (payloadStr.find("\"paired\":1") != null || payloadStr.find("\"paired\": 1") != null) {
+                    pairedValue = 1;
+                } else if (payloadStr.find("\"paired\":0") != null || payloadStr.find("\"paired\": 0") != null) {
+                    pairedValue = 0;
+                }
+            }
+
+            var isPaired = false;
+            if (pairedValue != null) {
+                if (pairedValue instanceof Lang.Boolean) {
+                    isPaired = pairedValue;
+                } else if (pairedValue instanceof Lang.Number) {
+                    isPaired = (pairedValue == 1);
+                } else if (pairedValue instanceof Lang.String) {
+                    isPaired = pairedValue.equals("true");
+                }
+            }
+
+            if (isPaired) {
                 mIsPaired = true;
                 
                 // Store API key if provided
-                if ((data has :apiKey) && data.get(:apiKey) != null) {
-                    var apiKey = data.get(:apiKey) as Lang.String;
-                    mApiKey = apiKey;
-                    // Persist API key
-                    var app = App.getApp();
-                    app.setProperty(API_KEY_STORAGE_KEY, apiKey);
+                if (payload != null && payload instanceof Lang.Dictionary) {
+                    var apiKeyValue = null;
+                    if (payload has :apiKey) {
+                        apiKeyValue = payload.get(:apiKey);
+                    } else {
+                        apiKeyValue = payload.get("apiKey");
+                    }
+
+                    if (apiKeyValue != null) {
+                        var apiKey = apiKeyValue as Lang.String;
+                        mApiKey = apiKey;
+                        // Persist API key
+                        var app = App.getApp();
+                        app.setProperty(API_KEY_STORAGE_KEY, apiKey);
+                    }
+                } else if (payload != null && payload instanceof Lang.String) {
+                    var payloadStr = payload as Lang.String;
+                    var apiKeyMarker = "\"apiKey\":\"";
+                    var apiKeyStart = payloadStr.find(apiKeyMarker);
+                    if (apiKeyStart != null) {
+                        var start = apiKeyStart + apiKeyMarker.length();
+                        var after = payloadStr.substring(start, payloadStr.length());
+                        var end = after.find("\"");
+                        if (end != null && end > 0) {
+                            var apiKey = after.substring(0, end);
+                            mApiKey = apiKey;
+                            var app = App.getApp();
+                            app.setProperty(API_KEY_STORAGE_KEY, apiKey);
+                        }
+                    }
                 }
                 
                 mStatus = "Paired ✓";
@@ -180,12 +250,14 @@ class MainView extends Ui.View {
                 mIsPaired = false;
                 mStatus = "Not Paired";
                 Ui.requestUpdate();
+                requestQrCode();
             }
         } else {
             // On error, assume not paired
             mIsPaired = false;
             mStatus = "Check Failed";
             Ui.requestUpdate();
+            requestQrCode();
         }
     }
 
@@ -203,7 +275,13 @@ class MainView extends Ui.View {
             return;
         }
 
-        var payload = buildPayload();
+        if (mDelegate == null) {
+            mStatus = "Missing Delegate";
+            Ui.requestUpdate();
+            return;
+        }
+
+        var payload = mDelegate.buildGarminDailySnapshotV2(mDeviceId);
 
         if (payload == null) {
             mStatus = "Error No data";
@@ -229,136 +307,6 @@ class MainView extends Ui.View {
             options,
             method(:onHttpResponse)
         );
-    }
-
-    function buildPayload() as Lang.Dictionary or Null {
-        // Guard: Check ActivityMonitor availability
-        if (!(Toybox has :ActivityMonitor) || !(AM has :getInfo)) {
-            return null;
-        }
-
-        var info = AM.getInfo();
-        if (info == null) {
-            return null;
-        }
-
-        // Use stored device ID
-        var deviceId = mDeviceId;
-
-        // Collect activity metrics
-        var steps = getStepsToday(info);
-        var activeCalories = getActiveCalories(info);
-        var bodyBattery = getLatestBodyBattery();
-        var stressAvg = getLatestStress();
-
-        // Backend requires steps and activeCalories to be numbers (not null)
-        // Default to 0 if null
-        if (steps == null) {
-            steps = 0;
-        }
-        if (activeCalories == null) {
-            activeCalories = 0;
-        }
-
-        // Build payload dictionary matching backend format
-        // Include all fields - backend will handle null optional values
-        return {
-            "deviceId" => deviceId,
-            "timestamp" => Time.now().value(),
-            "steps" => steps,
-            "activeCalories" => activeCalories,
-            "bodyBattery" => bodyBattery,
-            "stressAvg" => stressAvg
-        };
-    }
-
-    function getStepsToday(info as AM.Info) as Lang.Number or Null {
-        if ((info has :stepsToday) && info.stepsToday != null) {
-            return info.stepsToday;
-        }
-        if ((info has :steps) && info.steps != null) {
-            return info.steps;
-        }
-        return null;
-    }
-
-    function getActiveCalories(info as AM.Info) as Lang.Number or Null {
-        // Try activeCalories first (calories burned during activities)
-        if ((info has :activeCalories) && info.activeCalories != null) {
-            return info.activeCalories;
-        }
-        // Fallback to calories (total active calories for the day)
-        if ((info has :calories) && info.calories != null) {
-            return info.calories;
-        }
-        return null;
-    }
-
-    function getLatestHeartRate() as Lang.Number or Null {
-        // Try history first
-        if ((Toybox has :SensorHistory) && (SH has :getHeartRateHistory)) {
-            var it = SH.getHeartRateHistory({
-                :period => 1,
-                :order  => SH.ORDER_NEWEST_FIRST
-            });
-
-            if (it != null && (it has :next)) {
-                var sample = it.next();
-                if (sample != null && (sample has :data) && sample.data != null) {
-                    return sample.data;
-                }
-            }
-        }
-
-        // Fallback to current heart rate
-        if ((Toybox has :ActivityMonitor) && (AM has :getInfo)) {
-            var info = AM.getInfo();
-            if (info != null && (info has :currentHeartRate) && info.currentHeartRate != null) {
-                return info.currentHeartRate;
-            }
-        }
-
-        return null;
-    }
-
-    function getLatestBodyBattery() as Lang.Number or Null {
-        if (!(Toybox has :SensorHistory) || !(SH has :getBodyBatteryHistory)) {
-            return null;
-        }
-
-        var it = SH.getBodyBatteryHistory({
-            :period => 1,
-            :order  => SH.ORDER_NEWEST_FIRST
-        });
-
-        if (it != null && (it has :next)) {
-            var sample = it.next();
-            if (sample != null && (sample has :data) && sample.data != null) {
-                return sample.data;
-            }
-        }
-
-        return null;
-    }
-
-    function getLatestStress() as Lang.Number or Null {
-        if (!(Toybox has :SensorHistory) || !(SH has :getStressHistory)) {
-            return null;
-        }
-
-        var it = SH.getStressHistory({
-            :period => 1,
-            :order  => SH.ORDER_NEWEST_FIRST
-        });
-
-        if (it != null && (it has :next)) {
-            var sample = it.next();
-            if (sample != null && (sample has :data) && sample.data != null) {
-                return sample.data;
-            }
-        }
-
-        return null;
     }
 
     function onHttpResponse(responseCode as Lang.Number, data as Lang.Dictionary or Lang.String or Null) as Void {
@@ -388,5 +336,42 @@ class MainView extends Ui.View {
         return lines;
     }
 
-}
+    // Download QR image from backend and cache in memory
+    function requestQrCode() as Void {
+        if (mQrRequestInFlight) {
+            return;
+        }
 
+        if (mDeviceId == null || mDeviceId.equals("unknown")) {
+            mQrStatus = "No Device ID";
+            Ui.requestUpdate();
+            return;
+        }
+
+        mQrStatus = "Loading QR…";
+        mQrBitmap = null;
+        mQrRequestInFlight = true;
+        Ui.requestUpdate();
+
+        var url = BACKEND_URL + "/api/pairing/qrcode/" + mDeviceId;
+        Comm.makeImageRequest(
+            url,
+            null,
+            {}, // use default sizing/palette
+            method(:onQrCodeResponse)
+        );
+    }
+
+    function onQrCodeResponse(responseCode as Lang.Number, data as Gfx.BitmapReference or Null) as Void {
+        mQrRequestInFlight = false;
+        if (responseCode >= 200 && responseCode < 300 && data != null) {
+            mQrBitmap = data;
+            mQrStatus = "Scan to pair";
+        } else {
+            mQrBitmap = null;
+            mQrStatus = "QR load failed";
+        }
+        Ui.requestUpdate();
+    }
+
+}

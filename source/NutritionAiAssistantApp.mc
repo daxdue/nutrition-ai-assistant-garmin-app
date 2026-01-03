@@ -20,7 +20,9 @@ class NutritionAiAssistantApp extends App.AppBase {
     // Return the initial view of your application here
     function getInitialView() {
         var view = new MainView();
-        return [ view, new MainDelegate(view) ];
+        var delegate = new MainDelegate(view);
+        view.setDelegate(delegate);
+        return [ view, delegate ];
     }
 
 }
@@ -28,4 +30,3 @@ class NutritionAiAssistantApp extends App.AppBase {
 function getApp() as NutritionAiAssistantApp {
     return Application.getApp() as NutritionAiAssistantApp;
 }
-
