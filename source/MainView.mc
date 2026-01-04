@@ -4,6 +4,7 @@ using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
 using Toybox.Communications as Comm;
 using Toybox.Lang as Lang;
+using Toybox.ActivityMonitor as AM;
 import Toybox.Graphics;
 
 class MainView extends Ui.View {
@@ -156,7 +157,7 @@ class MainView extends Ui.View {
         var bottomMargin = showBottomStatus ? statusHeight + 5 : 5;
         
         // Top section: Title - ensure it fits on screen
-        var titleY = 10;
+        var titleY = 20;
         if (titleY + titleHeight <= h) {
             dc.drawText(
                 w / 2,
@@ -193,24 +194,48 @@ class MainView extends Ui.View {
             var calories = formatNutritionValue(mNutritionData.get("calories"), " kcal");
             var meals = formatNutritionValue(mNutritionData.get("meals"), "");
             
-            // Calculate spacing between calories and meals
-            var spacing = 12;
-            var totalContentHeight = valueHeight + spacing + statusHeight;
+            // Get burned calories from ActivityMonitor
+            var burnedCalories = getBurnedCalories();
+            
+            // Get macros
+            var fat = mNutritionData.get("fat");
+            var carbs = mNutritionData.get("carbs");
+            var protein = mNutritionData.get("protein");
+            
+            // Check if macros have values (with proper type casting)
+            var fatVal = (fat != null) ? (fat as Lang.Float) : null;
+            var carbsVal = (carbs != null) ? (carbs as Lang.Float) : null;
+            var proteinVal = (protein != null) ? (protein as Lang.Float) : null;
+            var hasMacros = (fatVal != null && fatVal > 0) || (carbsVal != null && carbsVal > 0) || (proteinVal != null && proteinVal > 0);
+            
+            // Calculate spacing - account for bar chart and macros
+            var barHeight = 8;
+            var barSpacing = 8;
+            var spacing = 10;
+            var macroSpacing = 6;
+            var macrosHeight = hasMacros ? statusHeight + macroSpacing : 0;
+            var totalContentHeight = valueHeight + spacing + barSpacing + barHeight + statusHeight + macrosHeight;
             
             // Center the content block vertically in available space
             var contentCenterY = contentTop + (availableHeight / 2);
             var caloriesY = contentCenterY - (totalContentHeight / 2);
-            var mealsY = caloriesY + valueHeight + spacing;
+            var barY = caloriesY + valueHeight + spacing;
+            var mealsY = barY + barHeight + barSpacing;
+            var macrosY = mealsY + statusHeight + macroSpacing;
             
             // Ensure everything fits within bounds
             if (caloriesY < contentTop) {
                 caloriesY = contentTop;
-                mealsY = caloriesY + valueHeight + spacing;
+                barY = caloriesY + valueHeight + spacing;
+                mealsY = barY + barHeight + barSpacing;
+                macrosY = mealsY + statusHeight + macroSpacing;
             }
             
-            if (mealsY + statusHeight > contentBottom) {
-                mealsY = contentBottom - statusHeight;
-                caloriesY = mealsY - valueHeight - spacing;
+            if (macrosY + statusHeight > contentBottom) {
+                macrosY = contentBottom - statusHeight;
+                mealsY = macrosY - macroSpacing - statusHeight;
+                barY = mealsY - barSpacing - barHeight;
+                caloriesY = barY - spacing - valueHeight;
                 if (caloriesY < contentTop) {
                     caloriesY = contentTop;
                 }
@@ -227,6 +252,14 @@ class MainView extends Ui.View {
                 );
             }
 
+            // Draw horizontal bar showing consumed vs burned calories
+            if (barY >= contentTop && barY + barHeight <= contentBottom) {
+                var consumedKcal = mNutritionData.get("calories");
+                drawCaloriesBar(dc, w, barY, barHeight, consumedKcal, burnedCalories);
+                // Reset color to white after drawing the bar
+                dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
+            }
+
             // Draw meals
             if (mealsY >= contentTop && mealsY + statusHeight <= contentBottom) {
                 var mealsText = "Meals " + meals;
@@ -235,6 +268,23 @@ class MainView extends Ui.View {
                     mealsY,
                     statusFont,
                     mealsText,
+                    Gfx.TEXT_JUSTIFY_CENTER
+                );
+            }
+            
+            // Draw macros (Fat, Carbs, Protein)
+            if (hasMacros && macrosY >= contentTop && macrosY + statusHeight <= contentBottom) {
+                var fatDisplay = (fatVal != null && fatVal > 0) ? fatVal : 0.0;
+                var carbsDisplay = (carbsVal != null && carbsVal > 0) ? carbsVal : 0.0;
+                var proteinDisplay = (proteinVal != null && proteinVal > 0) ? proteinVal : 0.0;
+                
+                // Format macros: "F:12g C:25g P:12g"
+                var macrosText = "F:" + formatMacroValue(fatDisplay) + "g C:" + formatMacroValue(carbsDisplay) + "g P:" + formatMacroValue(proteinDisplay) + "g";
+                dc.drawText(
+                    w / 2,
+                    macrosY,
+                    statusFont,
+                    macrosText,
                     Gfx.TEXT_JUSTIFY_CENTER
                 );
             }
@@ -546,13 +596,109 @@ class MainView extends Ui.View {
         var calories = extractNumber(candidate, [ :totalKcal, "totalKcal", :calories, "calories", :kcal, "kcal", :energy, "energy" ]);
         var meals = extractNumber(candidate, [ :totalMeals, "totalMeals", :meals, "meals" ]);
 
-        if (calories == null && meals == null) {
+        // Calculate macros from foodEntries if available
+        var totalFat = 0.0;
+        var totalCarbs = 0.0;
+        var totalProtein = 0.0;
+        
+        var foodEntries = candidate.get(:foodEntries);
+        if (foodEntries == null) {
+            foodEntries = candidate.get("foodEntries");
+        }
+        
+        if (foodEntries != null && foodEntries instanceof Lang.Array) {
+            var entries = foodEntries as Lang.Array;
+            for (var i = 0; i < entries.size(); i++) {
+                var entry = entries[i];
+                if (entry != null && entry instanceof Lang.Dictionary) {
+                    var aiParsedJson = entry.get(:aiParsedJson);
+                    if (aiParsedJson == null) {
+                        aiParsedJson = entry.get("aiParsedJson");
+                    }
+                    
+                    if (aiParsedJson != null && aiParsedJson instanceof Lang.Dictionary) {
+                        var items = aiParsedJson.get(:items);
+                        if (items == null) {
+                            items = aiParsedJson.get("items");
+                        }
+                        
+                        if (items != null && items instanceof Lang.Array) {
+                            var itemsArray = items as Lang.Array;
+                            for (var j = 0; j < itemsArray.size(); j++) {
+                                var item = itemsArray[j];
+                                if (item != null && item instanceof Lang.Dictionary) {
+                                    var fat = extractNumber(item, [ :fat_g, "fat_g", :fat, "fat" ]);
+                                    var carbs = extractNumber(item, [ :carbs_g, "carbs_g", :carbs, "carbs", :carbohydrates_g, "carbohydrates_g" ]);
+                                    var protein = extractNumber(item, [ :protein_g, "protein_g", :protein, "protein" ]);
+                                    
+                                    if (fat != null) {
+                                        totalFat += fat.toFloat();
+                                    }
+                                    if (carbs != null) {
+                                        totalCarbs += carbs.toFloat();
+                                    }
+                                    if (protein != null) {
+                                        totalProtein += protein.toFloat();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Try to get macros from top-level if not found in foodEntries
+        if (totalFat == 0 && totalCarbs == 0 && totalProtein == 0) {
+            var fatNum = extractNumber(candidate, [ :totalFatG, "totalFatG", :fat_g, "fat_g", :fat, "fat" ]);
+            var carbsNum = extractNumber(candidate, [ :totalCarbsG, "totalCarbsG", :carbs_g, "carbs_g", :carbs, "carbs" ]);
+            var proteinNum = extractNumber(candidate, [ :totalProteinG, "totalProteinG", :protein_g, "protein_g", :protein, "protein" ]);
+            
+            if (fatNum != null) {
+                var fatFloat = fatNum as Lang.Float;
+                if (fatFloat != null) {
+                    totalFat = fatFloat;
+                } else {
+                    var fatNumber = fatNum as Lang.Number;
+                    if (fatNumber != null) {
+                        totalFat = fatNumber.toFloat();
+                    }
+                }
+            }
+            if (carbsNum != null) {
+                var carbsFloat = carbsNum as Lang.Float;
+                if (carbsFloat != null) {
+                    totalCarbs = carbsFloat;
+                } else {
+                    var carbsNumber = carbsNum as Lang.Number;
+                    if (carbsNumber != null) {
+                        totalCarbs = carbsNumber.toFloat();
+                    }
+                }
+            }
+            if (proteinNum != null) {
+                var proteinFloat = proteinNum as Lang.Float;
+                if (proteinFloat != null) {
+                    totalProtein = proteinFloat;
+                } else {
+                    var proteinNumber = proteinNum as Lang.Number;
+                    if (proteinNumber != null) {
+                        totalProtein = proteinNumber.toFloat();
+                    }
+                }
+            }
+        }
+
+        if (calories == null && meals == null && totalFat == 0 && totalCarbs == 0 && totalProtein == 0) {
             return null;
         }
 
         return {
             "calories" => calories,
-            "meals" => meals
+            "meals" => meals,
+            "fat" => totalFat,
+            "carbs" => totalCarbs,
+            "protein" => totalProtein
         };
     }
 
@@ -585,6 +731,23 @@ class MainView extends Ui.View {
         }
 
         return value.toString() + suffix;
+    }
+
+    function formatMacroValue(value as Lang.Number or Lang.Float) as Lang.String {
+        if (value == null || value == 0) {
+            return "0";
+        }
+        
+        // Always format as integer (round to nearest whole number)
+        var floatValue = value.toFloat();
+        var intValue = floatValue.toNumber();
+        
+        // Round to nearest integer
+        if (floatValue - intValue.toFloat() >= 0.5) {
+            intValue = intValue + 1;
+        }
+        
+        return intValue.toString();
     }
 
     // Helper function to split device ID into multiple lines
@@ -640,6 +803,120 @@ class MainView extends Ui.View {
             mQrStatus = "QR load failed";
         }
         Ui.requestUpdate();
+    }
+
+    // Get burned calories from ActivityMonitor
+    function getBurnedCalories() as Lang.Number {
+        if (!(Toybox has :ActivityMonitor)) {
+            return 0;
+        }
+
+        var info = null;
+        try {
+            info = AM.getInfo();
+        } catch (ex) {
+            return 0;
+        }
+
+        if (info == null) {
+            return 0;
+        }
+
+        // Try to get total calories burned (active + resting)
+        var totalCalories = null;
+        if ((info has :totalCalories) && info.totalCalories != null) {
+            totalCalories = info.totalCalories;
+        } else if ((info has :calories) && info.calories != null) {
+            totalCalories = info.calories;
+        }
+
+        if (totalCalories != null) {
+            return totalCalories;
+        }
+
+        // Fallback: try active calories + resting calories
+        var activeCalories = null;
+        if ((info has :activeCalories) && info.activeCalories != null) {
+            activeCalories = info.activeCalories;
+        } else if ((info has :calories) && info.calories != null) {
+            activeCalories = info.calories;
+        }
+
+        var restingCalories = null;
+        if ((info has :restingCalories) && info.restingCalories != null) {
+            restingCalories = info.restingCalories;
+        }
+
+        if (activeCalories != null && restingCalories != null) {
+            return activeCalories + restingCalories;
+        } else if (activeCalories != null) {
+            return activeCalories;
+        }
+
+        return 0;
+    }
+
+    // Draw horizontal bar showing consumed vs burned calories correlation
+    // Based on Garmin Connect IQ SDK Graphics API
+    // Shows consumed calories from left (red/green) and burned calories from right (blue)
+    function drawCaloriesBar(dc as Graphics.Dc, w as Lang.Number, y as Lang.Number, barHeight as Lang.Number, consumedKcal as Lang.Number or Null, burnedKcal as Lang.Number) as Void {
+        if (consumedKcal == null) {
+            consumedKcal = 0;
+        }
+
+        // Bar dimensions with margins
+        var barMargin = 20; // Margin on each side
+        var barWidth = w - (barMargin * 2);
+        var barX = barMargin;
+
+        // Determine max value for scaling (use the larger of consumed or burned, or default to 2000)
+        var maxKcal = consumedKcal > burnedKcal ? consumedKcal : burnedKcal;
+        if (maxKcal < 2000) {
+            maxKcal = 2000; // Default scale for better visibility
+        }
+
+        // Draw background bar (dark gray)
+        dc.setColor(Gfx.COLOR_DK_GRAY, Gfx.COLOR_TRANSPARENT);
+        dc.fillRectangle(barX, y, barWidth, barHeight);
+
+        // Draw consumed calories bar from the left
+        var consumedWidth = (consumedKcal.toFloat() / maxKcal.toFloat()) * barWidth;
+        if (consumedWidth > barWidth) {
+            consumedWidth = barWidth;
+        }
+        
+        if (consumedWidth > 0) {
+            // Green if consumed <= burned, red if consumed > burned
+            var consumedColor = (consumedKcal <= burnedKcal) ? Gfx.COLOR_GREEN : Gfx.COLOR_RED;
+            dc.setColor(consumedColor, Gfx.COLOR_TRANSPARENT);
+            dc.fillRectangle(barX, y, consumedWidth, barHeight);
+        }
+
+        // Draw burned calories bar from the right (blue)
+        // This creates a visual correlation - they meet in the middle if balanced
+        if (burnedKcal > 0) {
+            var burnedWidth = (burnedKcal.toFloat() / maxKcal.toFloat()) * barWidth;
+            if (burnedWidth > barWidth) {
+                burnedWidth = barWidth;
+            }
+            
+            // Draw burned calories as a filled segment from the right
+            var burnedX = barX + barWidth - burnedWidth;
+            dc.setColor(Gfx.COLOR_BLUE, Gfx.COLOR_TRANSPARENT);
+            dc.fillRectangle(burnedX, y, burnedWidth, barHeight);
+            
+            // Draw a white divider line where burned calories start (for clarity)
+            if (burnedX > barX) {
+                dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
+                dc.drawLine(burnedX, y, burnedX, y + barHeight);
+            }
+        } else {
+            // If no burned calories data, show a message or indicator
+            // For now, just don't draw anything for burned
+        }
+        
+        // Reset color to white for text drawing after this function
+        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
     }
 
 }
