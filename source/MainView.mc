@@ -1,10 +1,10 @@
-using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
 using Toybox.Communications as Comm;
 using Toybox.Lang as Lang;
 using Toybox.ActivityMonitor as AM;
+import Toybox.Application.Storage;
 import Toybox.Graphics;
 
 class MainView extends Ui.View {
@@ -33,10 +33,13 @@ class MainView extends Ui.View {
         mQrRequestInFlight = false;
         mNutritionStatus = "Loading…";
         mNutritionData = null;
-        
+
+        loadDeviceId();
+        // Check pairing as early as possible during initialization.
+        checkPairingStatus();
+
         // Load stored API key
-        var app = App.getApp();
-        var storedKey = app.getProperty(API_KEY_STORAGE_KEY);
+        var storedKey = Storage.getValue(API_KEY_STORAGE_KEY);
         if (storedKey != null) {
             mApiKey = storedKey as Lang.String;
         }
@@ -46,22 +49,13 @@ class MainView extends Ui.View {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
-        // Get device ID first
-        var settings = Sys.getDeviceSettings();
-        mDeviceId = (settings != null && (settings has :uniqueIdentifier) && settings.uniqueIdentifier != null)
-            ? settings.uniqueIdentifier
-            : "unknown";
+        loadDeviceId();
         mQrBitmap = null;
         mQrStatus = "Loading QR…";
         mQrRequestInFlight = false;
         mNutritionStatus = "Loading…";
         mNutritionData = null;
         Ui.requestUpdate();
-
-        // Check pairing status
-        mStatus = "Checking…";
-        Ui.requestUpdate();
-        checkPairingStatus();
 
         // Kick off QR download so it is ready if not paired
         requestQrCode();
@@ -317,6 +311,13 @@ class MainView extends Ui.View {
         mDelegate = delegate;
     }
 
+    function loadDeviceId() as Void {
+        var settings = Sys.getDeviceSettings();
+        mDeviceId = (settings != null && (settings has :uniqueIdentifier) && settings.uniqueIdentifier != null)
+            ? settings.uniqueIdentifier
+            : "unknown";
+    }
+
     // Check if device is paired
     function checkPairingStatus() as Void {
         if (mDeviceId.equals("unknown")) {
@@ -401,8 +402,7 @@ class MainView extends Ui.View {
                         var apiKey = apiKeyValue as Lang.String;
                         mApiKey = apiKey;
                         // Persist API key
-                        var app = App.getApp();
-                        app.setProperty(API_KEY_STORAGE_KEY, apiKey);
+                        Storage.setValue(API_KEY_STORAGE_KEY, apiKey);
                     }
                 } else if (payload != null && payload instanceof Lang.String) {
                     var payloadStr = payload as Lang.String;
@@ -415,8 +415,7 @@ class MainView extends Ui.View {
                         if (end != null && end > 0) {
                             var apiKey = after.substring(0, end);
                             mApiKey = apiKey;
-                            var app = App.getApp();
-                            app.setProperty(API_KEY_STORAGE_KEY, apiKey);
+                            Storage.setValue(API_KEY_STORAGE_KEY, apiKey);
                         }
                     }
                 }
@@ -920,4 +919,3 @@ class MainView extends Ui.View {
     }
 
 }
-
