@@ -11,6 +11,7 @@ class MainView extends Ui.View {
 
     const BACKEND_URL = "https://nutrition-assistant-backend-production-cd64.up.railway.app";
     const API_KEY_STORAGE_KEY = "apiKey";
+    const WIDGET_INTENT_URI = "manifest-id://2b63f3c4-39d4-4f1f-99d5-4cc2cd862a4a";
     var mStatus as Lang.String;
     var mIsPaired as Lang.Boolean;
     var mDeviceId as Lang.String;
@@ -85,7 +86,6 @@ class MainView extends Ui.View {
         var titleFont = Gfx.FONT_XTINY; // Smaller font for title
         var statusFont = Gfx.FONT_XTINY;
         var titleHeight = dc.getFontHeight(titleFont);
-        var statusHeight = dc.getFontHeight(statusFont);
         
         // Top section: Title
         var titleY = 15;
@@ -503,6 +503,44 @@ class MainView extends Ui.View {
         );
     }
 
+    function openWidget() as Void {
+        loadDeviceId();
+
+        var args = null;
+        var hasArgs = false;
+        var intentArgs = {} as Lang.Dictionary;
+
+        if (mApiKey != null) {
+            intentArgs.put("apiKey", mApiKey);
+            hasArgs = true;
+        }
+
+        if (mDeviceId != null && !mDeviceId.equals("") && !mDeviceId.equals("unknown")) {
+            intentArgs.put("deviceId", mDeviceId);
+            hasArgs = true;
+        }
+
+        if (hasArgs) {
+            args = intentArgs;
+        }
+
+        try {
+            var intent = new Sys.Intent(WIDGET_INTENT_URI, args);
+            Sys.exitTo(intent);
+        } catch (ex) {
+            if (ex instanceof Sys.AppNotInstalledException) {
+                mStatus = "Widget not installed";
+            } else if (ex instanceof Sys.UnexpectedAppTypeException) {
+                mStatus = "Widget not supported";
+            } else if (ex instanceof Sys.PreviousOperationNotCompleteException) {
+                mStatus = "Try again";
+            } else {
+                mStatus = "Open widget failed";
+            }
+            Ui.requestUpdate();
+        }
+    }
+
     function onHttpResponse(responseCode as Lang.Number, data as Lang.Dictionary or Lang.String or Null) as Void {
         if (responseCode >= 200 && responseCode < 300) {
             mStatus = "Uploaded ✓";
@@ -553,7 +591,7 @@ class MainView extends Ui.View {
 
     function onNutritionResponse(responseCode as Lang.Number, data as Lang.Dictionary or Lang.String or Null) as Void {
         if (responseCode >= 200 && responseCode < 300) {
-            var payload = data;
+            var payload = data as Lang.Dictionary;
             var nutrition = extractNutritionPayload(payload);
 
             if (nutrition != null) {
@@ -571,17 +609,12 @@ class MainView extends Ui.View {
         Ui.requestUpdate();
     }
 
-    function extractNutritionPayload(payload as Lang.Dictionary or Lang.String or Null) as Lang.Dictionary or Null {
+    function extractNutritionPayload(payload as Lang.Dictionary or Null) as Lang.Dictionary or Null {
         if (payload == null) {
             return null;
         }
 
-        var payloadDict = payload as Lang.Dictionary;
-        if (payloadDict == null) {
-            return null;
-        }
-
-        var candidate = payloadDict;
+        var candidate = payload;
         var nestedKeys = [ :data, "data", :stats, "stats", :nutrition, "nutrition", :totals, "totals", :summary, "summary", :day, "day" ] as Lang.Array;
         for (var i = 0; i < nestedKeys.size(); i++) {
             var key = nestedKeys[i];
@@ -654,37 +687,13 @@ class MainView extends Ui.View {
             var proteinNum = extractNumber(candidate, [ :totalProteinG, "totalProteinG", :protein_g, "protein_g", :protein, "protein" ]);
             
             if (fatNum != null) {
-                var fatFloat = fatNum as Lang.Float;
-                if (fatFloat != null) {
-                    totalFat = fatFloat;
-                } else {
-                    var fatNumber = fatNum as Lang.Number;
-                    if (fatNumber != null) {
-                        totalFat = fatNumber.toFloat();
-                    }
-                }
+                totalFat = fatNum.toFloat();
             }
             if (carbsNum != null) {
-                var carbsFloat = carbsNum as Lang.Float;
-                if (carbsFloat != null) {
-                    totalCarbs = carbsFloat;
-                } else {
-                    var carbsNumber = carbsNum as Lang.Number;
-                    if (carbsNumber != null) {
-                        totalCarbs = carbsNumber.toFloat();
-                    }
-                }
+                totalCarbs = carbsNum.toFloat();
             }
             if (proteinNum != null) {
-                var proteinFloat = proteinNum as Lang.Float;
-                if (proteinFloat != null) {
-                    totalProtein = proteinFloat;
-                } else {
-                    var proteinNumber = proteinNum as Lang.Number;
-                    if (proteinNumber != null) {
-                        totalProtein = proteinNumber.toFloat();
-                    }
-                }
+                totalProtein = proteinNum.toFloat();
             }
         }
 
@@ -701,7 +710,7 @@ class MainView extends Ui.View {
         };
     }
 
-    function extractNumber(source as Lang.Dictionary, keys as Lang.Array) as Lang.Number or Lang.Float or Null {
+    function extractNumber(source as Lang.Dictionary or Null, keys as Lang.Array) as Lang.Number or Null {
         if (source == null) {
             return null;
         }
@@ -714,17 +723,13 @@ class MainView extends Ui.View {
                 if (numberValue != null) {
                     return numberValue;
                 }
-                var floatValue = value as Lang.Float;
-                if (floatValue != null) {
-                    return floatValue;
-                }
             }
         }
 
         return null;
     }
 
-    function formatNutritionValue(value as Lang.Number or Lang.Float or Null, suffix as Lang.String) as Lang.String {
+    function formatNutritionValue(value as Lang.Number or Null, suffix as Lang.String) as Lang.String {
         if (value == null) {
             return "--";
         }
@@ -732,7 +737,7 @@ class MainView extends Ui.View {
         return value.toString() + suffix;
     }
 
-    function formatMacroValue(value as Lang.Number or Lang.Float) as Lang.String {
+    function formatMacroValue(value as Lang.Number or Lang.Float or Null) as Lang.String {
         if (value == null || value == 0) {
             return "0";
         }
@@ -814,10 +819,6 @@ class MainView extends Ui.View {
         try {
             info = AM.getInfo();
         } catch (ex) {
-            return 0;
-        }
-
-        if (info == null) {
             return 0;
         }
 

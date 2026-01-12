@@ -2,15 +2,17 @@ using Toybox.WatchUi as Ui;
 using Toybox.Lang as Lang;
 
 class MainMenuDelegate extends Ui.MenuInputDelegate {
+    var mView as MainView;
 
-    function initialize() {
+    function initialize(view as MainView) {
         MenuInputDelegate.initialize();
+        mView = view;
     }
 
     function onMenuItem(item as Lang.Symbol) as Void {
-        // Optional menu logic (compile-ready stub)
-        // Future menu features can be added here
+        if (item == :open_widget) {
+            mView.openWidget();
+        }
     }
 
 }
-
